@@ -1,5 +1,5 @@
 
-![alt text](app.PNG)
+![Graph-Enhanced-QA](app.png)
 # Graph-Enhanced-QA
 "Graph-Enhanced Question Answering
 Setup Guide

@@ -1,0 +1,57 @@
+LLM Fine-Tuning and Optimization + Agentic SOTA:
+
+Objective: Demonstrate your understanding of LLM fine-tuning techniques relevant to graph-based agents.
+
+- **Instructions:**
+    - Provide a brief plan on how you would fine-tune an LLM using techniques like LoRA (Low-Rank Adaptation) or DPO (Direct Preference Optimization) for enhanced graph query responses.
+    - This can be a written proposal (1-2 pages) where you outline the steps, required datasets, potential challenges, and how you'd measure success.
+
+
+Introduction
+This proposal outlines a strategy for fine-tuning a Large Language Model (LLM) to improve its performance on graph query tasks.
+
+1. DPO (Direct Preference Optimization) Implementation
+    #Dataset Creation
+        Compile a dataset of graph-related queries and responses
+        Include both correct and incorrect responses for DPO (Direct Preference Optimization) training
+        Example: "What is the shortest path between nodes A and B?" with corresponding graph representations    
+    #Model Selection
+        Choose a base LLM (e.g., LLaMA-2 7B or Mistral 7B)
+        Tools: Hugging Face Transformers library
+    #DPO Fine-Tuning        
+        Dataset
+            Create pairs of responses (preferred vs. non-preferred) for graph queries
+            Example: Correct path vs. incorrect path for shortest path queries
+        Training
+            Apply DPO using the preference dataset
+            Tools: TRL (Transformer Reinforcement Learning) library
+    #Example code snippet:
+        from trl import DPOTrainer
+        dpo_trainer = DPOTrainer(model=model, args=training_args, beta=0.1)
+        dpo_trainer.train() 
+
+2. LoRA (Low-Rank Adaptation) Implementation 
+    #Setup
+        Configure LoRA adapters for efficient fine-tuning
+        Tools: PEFT (Parameter-Efficient Fine-Tuning) library -  is a library for efficiently adapting large pretrained models to various downstream applications.
+    #Training
+        Use Supervised Fine-Tuning (SFT) with LoRA
+        Focus on graph-specific vocabulary and reasoning
+    #Example code snippet:
+        from peft import LoraConfig, get_peft_model
+        lora_config = LoraConfig(r=8, lora_alpha=32, target_modules=["query", "value"])
+        model = get_peft_model(base_model, lora_config)
+
+3. potential challenges
+    #Data Quality
+        Ensure diverse and accurate graph query examples
+    #Overfitting
+        Risk of model specializing too narrowly on graph queries    
+
+4. Measure success
+    #Query response times: - Measure how long it takes for graph-related queries.
+    #Accuracy on graph query tasks: - Evaluate the model's performance with baseline model.
+    #Human evaluation: - Conduct human evaluations to assess quality of the response.
+    #Inference speed: - Compare the fine-tuned model's inference speed with baseline model.
+    #Cache hit ratios: - Monitor the percentage of queries served from cache vs those requiring data fetching.
+    #Scalability - Assess the model's performance at time of increase in graphs input.
